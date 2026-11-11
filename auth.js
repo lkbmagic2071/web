@@ -2,13 +2,13 @@
 // 1. DANH SÁCH TÀI KHOẢN ĐƯỢC CẤP PHÉP NỘI BỘ
 // ==========================================
 const ALLOWED_USERS = {
-    "duadua": {
+    "thuyduong": {
         pass: "123",
         name: "Bs. Dưa"
     },
-    "bacsi_a@gmail.com": {
+    "duadua": {
         pass: "123456",
-        name: "Bs. Nguyễn Văn A"
+        name: "Bs. Dưa"
     },
     "kieuoanh": {
         pass: "123",
