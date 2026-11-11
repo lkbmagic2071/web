@@ -2,9 +2,9 @@
 // 1. DANH SÁCH TÀI KHOẢN ĐƯỢC CẤP PHÉP NỘI BỘ
 // ==========================================
 const ALLOWED_USERS = {
-    "dr.hung@pathology.vn": {
-        pass: "gross2026",
-        name: "Bs. Hùng"
+    "duadua": {
+        pass: "123",
+        name: "Bs. Dưa"
     },
     "bacsi_a@gmail.com": {
         pass: "123456",
