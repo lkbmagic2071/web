@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quy Chuẩn Cắt Lọc Tổng Quát - GrossMaster Pro</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- File CSS dùng chung từ thư mục gốc -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        .article-container {
+            max-width: 950px;
+            margin: 2rem auto 5rem;
+            padding: 0 1.5rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-teal);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-4px);
+        }
+
+        .article-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.06);
+        }
+
+        .article-header {
+            border-bottom: 2px solid rgba(20, 184, 166, 0.2);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .article-header h1 {
+            color: #022c22;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-top: 0.5rem;
+        }
+
+        .step-block {
+            background: #ffffff;
+            border-left: 5px solid #14b8a6;
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border-top: 1px solid rgba(20, 184, 166, 0.15);
+            border-right: 1px solid rgba(20, 184, 166, 0.15);
+            border-bottom: 1px solid rgba(20, 184, 166, 0.15);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: rgba(20, 184, 166, 0.15);
+            color: #0f766e;
+            font-weight: 800;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-title {
+            color: #022c22;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .step-block ul, .step-block ol {
+            margin-left: 1.2rem;
+            color: #334155;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- CSS CHO KHUNG SLIDER ẢNH (TIẾN / LÙI) --- */
+        .image-slider-box {
+            position: relative;
+            background: #0f172a;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .slide-container {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .slide-container.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .slide-container img {
+            max-width: 100%;
+            max-height: 420px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .slide-caption {
+            color: #99f6e4;
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+            font-style: italic;
+        }
+
+        /* Nút điều hướng Tiến / Lùi */
+        .slider-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(20, 184, 166, 0.8);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .slider-btn:hover {
+            background: #14b8a6;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn { left: 15px; }
+        .next-btn { right: 15px; }
+
+        .slider-dots {
+            text-align: center;
+            padding-bottom: 10px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin: 0 4px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #2dd4bf;
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Thanh Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../hinh-anh/logoungbuou.jpg" alt="Logo Ung Bướu" class="logo-img">
+            <span class="logo-text">Gross<span class="logo-highlight">Master</span></span>
+        </div>
+        <div class="nav-auth">
+            <span id="userStatus" style="font-size: 0.9rem; color: #99f6e4; margin-right: 10px;">Chưa đăng nhập</span>
+            <button onclick="openAuthModal()" id="authBtn" style="background: #14b8a6; color: white; border: none; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 600; cursor: pointer;">Đăng Nhập</button>
+        </div>
+    </nav>
+
+    <!-- Nội dung chính -->
+    <main class="article-container">
+        <a href="../index.html" class="back-btn">← Quay lại danh mục chính</a>
+
+        <article class="article-card">
+            <header class="article-header">
+                <span class="card-tag">Quy trình </span>
+                <h1>Quy trình cắt lọc bệnh phẩm tuyến vú</h1>
+                <p style="color: #64748b; font-size: 0.95rem; margin-top: 0.5rem;">Quy trình chuẩn hóa toàn bộ các bước xử lý đại thể từ tiếp nhận đến lấy mẫu bệnh phẩm giải phẫu bệnh.</p>
+            </header>
+
+            <!-- BƯỚC 1: LƯU Ý CHUNG -->
+            <section class="step-block">
+                <span class="step-number">BƯỚC 1</span>
+                <h2 class="step-title">Nhận diện các loại bệnh phẩm phẫu thuật trọn tuyến vú</h2>
+                <p>Nhận diện được loại bệnh phẩm tuyến vú phẫu thuật</p>
+        <!-- KHUNG SLIDER HÌNH ẢNH BƯỚC 1 -->
+                <div class="image-slider-box" id="slider-step1">
+                    <div class="slide-container active">
+                        <img src="../hinh-anh/vu1.png" alt="Định hướng mẫu 1">
+                        <div class="slide-caption">Hình 1.1: Bệnh phẩm cắt trọn tuyến vú đơn giản.</div>
+                    </div>
+                    <div class="slide-container">
+                        <img src="../hinh-anh/vu2.png" alt="Định hướng mẫu 2">
+                        <div class="slide-caption">Hình 1.2: Bệnh phẩm cắt trọn tuyến vú cải biên.</div>
+                    </div>
+                    <div class="slide-container">
+                        <img src="../hinh-anh/vu3.png" alt="Định hướng mẫu 3">
+                        <div class="slide-caption">Hình 1.3: Bệnh phẩm cắt trọn tuyến vú tiết kiệm da.</div>
+                    </div>
+                    <div class="slide-container">
+                        <img src="../hinh-anh/vu4.png" alt="Định hướng mẫu 4">
+                        <div class="slide-caption">Hình 1.4: Bệnh phẩm cắt trọn tuyến vú tiết kiệm núm vú.</div>
+                    </div>
+
+                    <div class="slide-container">
+                        <img src="../hinh-anh/vu5.png" alt="Định hướng mẫu 5">
+                        <div class="slide-caption">Hình 1.5: Bệnh phẩm cắt trọn tuyến vú cổ điển.</div>
+                    </div>
+                    <div class="slide-container">
+                        <img src="../hinh-anh/vu6.png" alt="Định hướng mẫu 6">
+                        <div class="slide-caption">Hình 1.6: Bệnh phẩm cắt trọn tuyến vú dự phòng.</div>
+                    </div>
+                      <div class="slide-container">
+                        <img src="../hinh-anh/vu7.png" alt="Định hướng mẫu 7">
+                        <div class="slide-caption">Hình 1.7: Bảng tổng hợp các kiểu bệnh phẩm vú.</div>
+                    </div>
+                    <!-- Nút Tiến / Lùi -->
+                    <button class="slider-btn prev-btn" onclick="plusSlides(-1, 'slider-step1')">❮</button>
+                    <button class="slider-btn next-btn" onclick="plusSlides(1, 'slider-step1')">❯</button>
+                   
+                    <!-- Chấm chỉ mục -->
+                    <div class="slider-dots">
+                        <span class="dot active" onclick="currentSlide(1, 'slider-slider-step1')"></span>
+                        <span class="dot" onclick="currentSlide(2, 'slider-step1')"></span>
+                        <span class="dot" onclick="currentSlide(3, 'slider-step1')"></span>
+                        <span class="dot" onclick="currentSlide(4, 'slider-step1')"></span>
+                        <span class="dot" onclick="currentSlide(5, 'slider-step1')"></span>
+                        <span class="dot" onclick="currentSlide(6, 'slider-step1')"></span>
+                        <span class="dot" onclick="currentSlide(7, 'slider-step1')"></span>
+                    </div>
+            </section>
+
+            <!-- BƯỚC 2: ĐỊNH HƯỚNG -->
+            <section class="step-block">
+                <span class="step-number">BƯỚC 2</span>
+                <h2 class="step-title">Định hướng bệnh phẩm</h2>
+                <p>Xác định chính xác các mặt giải phẫu, cực trên/dưới, trái/phải, trước/sau hoặc các mốc chỉ khâu định hướng từ phẫu thuật viên.</p>
+                <ul>
+                    <li>Nhận diện các mốc giải phẫu tự nhiên (ví dụ: mô sợi mỡ, da trên vú ...v.v).</li>
+                    <li>Xác nhận ý nghĩa các mũi chỉ khâu định hướng thường quy (ví dụ: Chỉ ngắn = Diện cắt trên, Chỉ dài = Diện cắt bên).</li>
+                </ul>
+
+                <!-- KHUNG SLIDER HÌNH ẢNH BƯỚC 2 -->
+<div class="image-slider-box" id="slider-step2">
+    
+    <!-- Ảnh 1 -->
+    <div class="slide-container active">
+        <img src="../hinh-anh/vudinhvi1.png" alt="Định hướng mẫu 1">
+        <div class="slide-caption">Hình 2.1: Bệnh phẩm vú phải (có mối chỉ và mô sợi mỡ).</div>
+    </div>
+
+    <!-- Ảnh 2 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vudinhvi2.png" alt="Định hướng mẫu 2">
+        <div class="slide-caption">Hình 2.2: Bệnh phẩm vú trái (có 2 mối chỉ và da).</div>
+    </div>
+
+    <!-- Ảnh 3 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vudinhvi3.png" alt="Định hướng mẫu 3">
+        <div class="slide-caption">Hình 2.3: Bệnh phẩm vú trái (có mối chỉ và mô sợi mỡ rời).</div>
+    </div>
+
+    <!-- Ảnh 4 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vudinhvi4.png" alt="Định hướng mẫu 4">
+        <div class="slide-caption">Hình 2.4: Bệnh phẩm vú phải (xác định nhờ thông tin lâm sàng).</div>
+    </div>
+
+    <!-- Ảnh 5 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vudinhvi5.png" alt="Định hướng mẫu 5">
+        <div class="slide-caption">Hình 2.5: Bệnh phẩm vú không định vị (cần liên hệ phẫu thuật viên).</div>
+    </div>
+
+    <!-- Nút Tiến / Lùi (Đặt nằm gọn bên trong slider-box) -->
+    <button class="slider-btn prev-btn" onclick="plusSlides(-1, 'slider-step2')">❮</button>
+    <button class="slider-btn next-btn" onclick="plusSlides(1, 'slider-step2')">❯</button>
+   
+    <!-- Chấm chỉ mục (Chỉ giữ lại đúng 5 dot ứng với 5 ảnh) -->
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(1, 'slider-step2')"></span>
+        <span class="dot" onclick="currentSlide(2, 'slider-step2')"></span>
+        <span class="dot" onclick="currentSlide(3, 'slider-step2')"></span>
+        <span class="dot" onclick="currentSlide(4, 'slider-step2')"></span>
+        <span class="dot" onclick="currentSlide(5, 'slider-step2')"></span>
+    </div>
+                </div>
+            </section>
+
+             <!-- BƯỚC 3: Mô t -->
+            <section class="step-block">
+                <span class="step-number">BƯỚC 3</span>
+                <h2 class="step-title">Cân đo và mô tả bệnh phẩm</h2>
+                <p>Bước 1: Cân đo kích thước bênh phẩm 3 chiều.</p>
+                <p>Bước 2: Mô tả kích thước, màu sắc, tình trạng co kéo da, có loét da, và các tổn thương khác quan sát được (sẹo cũ => định vị u)</p>
+                <p>Bước 3: Mô tả kích thước, tính chất quầng vú, núm vú (co kéo, màu sắc, tiết dịch ...v.v</p>
+                <p>Bước 4: Quan sát mô tả diện cắt sâu (kèm phần cơ ngực lớn ...v.v</p>
+               
+
+               <!-- KHUNG SLIDER HÌNH ẢNH BƯỚC 3 -->
+<div class="image-slider-box" id="slider-step3">
+    
+    <!-- Ảnh 1 -->
+    <div class="slide-container active">
+        <img src="../hinh-anh/vuquansat1.png" alt="Quan sát mẫu 1">
+        <div class="slide-caption">Hình 3.1: Mô vú nhuộm mực sinh thiết lại.</div>
+    </div>
+
+    <!-- Ảnh 2 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vuquansat2.png" alt="Quan sát mẫu 2">
+        <div class="slide-caption">Hình 3.2: Mô vú có đánh dấu mực định vị bướu.</div>
+    </div>
+
+    <!-- Ảnh 3 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vuquansat3.png" alt="Quan sát mẫu 3">
+        <div class="slide-caption">Hình 3.3: Mô vú có vết hằn không rõ (cần liên hệ PTV).</div>
+    </div>
+
+    <!-- Ảnh 4 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vuquansat4.png" alt="Quan sát mẫu 4">
+        <div class="slide-caption">Hình 3.4: Mô vú có sẹo trên da (vị trí mổ cũ).</div>
+    </div>
+
+    <!-- Ảnh 5 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vuquansat5.png" alt="Quan sát mẫu 5">
+        <div class="slide-caption">Hình 3.5: Mô vú có sẹo trên da (không rõ cần liên hệ PTV).</div>
+    </div>
+
+    <!-- Ảnh 6 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vuquansat6.png" alt="Quan sát mẫu 6">
+        <div class="slide-caption">Hình 3.6: Mô vú đã thẩm mỹ làm hồng quầng vú (phân biệt với da cam).</div>
+    </div>
+
+    <!-- Ảnh 7 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vuquansat7.png" alt="Quan sát mẫu 7">
+        <div class="slide-caption">Hình 3.7: Mô vú da cam khu trú.</div>
+    </div>
+
+    <!-- Ảnh 8 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vuquansat8.png" alt="Quan sát mẫu 8">
+        <div class="slide-caption">Hình 3.8: Mô vú có bướu loét ra da.</div>
+    </div>
+
+    <!-- Ảnh 9 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vuquansat9.png" alt="Quan sát mẫu 9">
+        <div class="slide-caption">Hình 3.9: Mô vú có rìa sau bị thủng (cẩn thận khi đánh dấu mực).</div>
+    </div>
+
+    <!-- Nút Tiến / Lùi -->
+    <button class="slider-btn prev-btn" onclick="plusSlides(-1, 'slider-step3')">❮</button>
+    <button class="slider-btn next-btn" onclick="plusSlides(1, 'slider-step3')">❯</button>
+
+    <!-- Chấm chỉ mục (Đủ 9 chấm tương ứng với 9 ảnh) -->
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(1, 'slider-step3')"></span>
+        <span class="dot" onclick="currentSlide(2, 'slider-step3')"></span>
+        <span class="dot" onclick="currentSlide(3, 'slider-step3')"></span>
+        <span class="dot" onclick="currentSlide(4, 'slider-step3')"></span>
+        <span class="dot" onclick="currentSlide(5, 'slider-step3')"></span>
+        <span class="dot" onclick="currentSlide(6, 'slider-step3')"></span>
+        <span class="dot" onclick="currentSlide(7, 'slider-step3')"></span>
+        <span class="dot" onclick="currentSlide(8, 'slider-step3')"></span>
+        <span class="dot" onclick="currentSlide(9, 'slider-step3')"></span>
+    </div>
+</div>
+            </section>
+            <!-- BƯỚC 4: Đánh dấu mực -->
+            <section class="step-block">
+                <span class="step-number">BƯỚC 4</span>
+                <h2 class="step-title">Nhuộm mực diện cắt và định vị tổn thương</h2>
+                <p>Đánh dấu các diện cắt phẫu thuật bằng mực màu chuyên dụng để xác định ranh giới vi thể sau khi đúc block paraffin.</p>
+                <ul>
+                    <li>Sử dụng các màu mực chuẩn theo quy ước khoa phòng (Ví dụ: Đen = Diện cắt sau, Mực xanh lá = Diện cắt bên, Mực vàng = Diện cắt trước).</li>
+                    <li>Lưu ý lau bớt dịch nhầy/máu trước khi sơn mực và để khô tự nhiên hoặc dùng acid acetic loãng cố định nhanh bề mặt mực.</li>
+                </ul>
+                <p>Định vị trí tổn thương: sờ, vị trí đánh dấu, sẹo mổ cũ, hình ảnh học, ...v.v để xẻ lát chính xác</p>
+                <!-- KHUNG SLIDER HÌNH ẢNH BƯỚC 4 -->
+                <!-- KHUNG SLIDER HÌNH ẢNH BƯỚC 4 -->
+<div class="image-slider-box" id="slider-step4">
+    
+    <!-- Ảnh 1 -->
+    <div class="slide-container active">
+        <img src="../hinh-anh/vunhuommuc1.png" alt="Nhuộm mực mẫu 1">
+        <div class="slide-caption">Hình 4.1: Nhuộm mực diện cắt trước.</div>
+    </div>
+
+    <!-- Ảnh 2 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vunhuommuc2.png" alt="Nhuộm mực mẫu 2">
+        <div class="slide-caption">Hình 4.2: Nhuộm mực diện cắt sau.</div>
+    </div>
+
+    <!-- Ảnh 3 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vunhuommuc3.png" alt="Nhuộm mực mẫu 3">
+        <div class="slide-caption">Hình 4.3: Thao tác nhuộm mực cần tránh các vị trí diện cắt giả.</div>
+    </div>
+
+    <!-- Ảnh 4 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/vunhuommuc4.png" alt="Nhuộm mực mẫu 4">
+        <div class="slide-caption">Hình 4.4: Thao tác nhuộm mực cần tránh vị trí diện cắt giả.</div>
+    </div>
+
+    <!-- Nút Tiến / Lùi (Đã đổi đúng thành slider-step4) -->
+    <button class="slider-btn prev-btn" onclick="plusSlides(-1, 'slider-step4')">❮</button>
+    <button class="slider-btn next-btn" onclick="plusSlides(1, 'slider-step4')">❯</button>
+
+    <!-- Chấm chỉ mục (Đủ 4 chấm tương ứng với 4 ảnh và đúng ID slider-step4) -->
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(1, 'slider-step4')"></span>
+        <span class="dot" onclick="currentSlide(2, 'slider-step4')"></span>
+        <span class="dot" onclick="currentSlide(3, 'slider-step4')"></span>
+        <span class="dot" onclick="currentSlide(4, 'slider-step4')"></span>
+    </div>
+</div>
+            </section>
+
+            <!-- BƯỚC 5: Xẻ lát bệnh phẩm -->
+            <section class="step-block">
+                <span class="step-number">BƯỚC 5</span>
+                <h2 class="step-title">Xẻ lát bệnh phẩm</h2>
+                <p>Kỹ thuật xẻ lát: Các lát song song liên tiếp nhau (0.5 cm), hạn chế xẻ rời da đảm bảo cấu trúc ban đầu, sờ nắn kỹ tìm tổn thương.</p>
+                <p>Mô tả tổn thương: Vị trí (phần tư, khoảng cách hướng tới núm vú, mối chỉ), kích thước, khoảng cách đến diện cắt và da</p>
+                <p>Đặc điểm và tính chất bướu: Màu sắc, giới hạn (xâm nhiễm, rõ ràng, hay mờ nhạt), mật độ (chắc, cứng)…v.v</p>
+                <p>Đa tổn thương và mô còn lại: Nếu có nhiều tổn thương, đo khoảng cách giữa chúng và lấy mẫu mô nằm giữa. Mô tả phần mô vú không tổn thương còn lại (mô mỡ, mô xơ trắng chắc, có nang hay không...) </p>
+                <p>Các tổn thương không sờ thấy: Nếu chỉ thấy trên X-quang như vi vôi hóa, sau hoá trị, cần chụp X-quang các lát cắt để đảm bảo lấy mẫu đúng vùng tổn thương, hoặc lấy rộng vị trí mô tả.</p>
+                <!-- KHUNG SLIDER HÌNH ẢNH BƯỚC 5 -->
+<div class="image-slider-box" id="slider-step5">
+    
+    <!-- Ảnh 1 -->
+    <div class="slide-container active">
+        <img src="../hinh-anh/xevu1.png" alt="Xẻ mẫu vú 1">
+        <div class="slide-caption">Hình 5.1: Xẻ vú từ trước ra sau.</div>
+    </div>
+
+    <!-- Ảnh 2 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/xevu2.png" alt="Xẻ mẫu vú 2">
+        <div class="slide-caption">Hình 5.2: Xẻ vú từ sau ra trước.</div>
+    </div>
+
+    <!-- Ảnh 3 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/xevu3.png" alt="Xẻ mẫu vú 3">
+        <div class="slide-caption">Hình 5.3: Xẻ vú quan sát thấy bướu sát diện cắt sau.</div>
+    </div>
+
+    <!-- Nút Tiến / Lùi (Đã sửa đúng ID thành slider-step5) -->
+    <button class="slider-btn prev-btn" onclick="plusSlides(-1, 'slider-step5')">❮</button>
+    <button class="slider-btn next-btn" onclick="plusSlides(1, 'slider-step5')">❯</button>
+
+    <!-- Chấm chỉ mục (Đủ 3 chấm ứng với 3 ảnh và đúng ID slider-step5) -->
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(1, 'slider-step5')"></span>
+        <span class="dot" onclick="currentSlide(2, 'slider-step5')"></span>
+        <span class="dot" onclick="currentSlide(3, 'slider-step5')"></span>
+    </div>
+</div>
+            </section>
+
+            <!-- BƯỚC 6: LẤY MẪU -->
+            <section class="step-block">
+                <span class="step-number">BƯỚC 5</span>
+                <h2 class="step-title">Lấy mẫu đại diện</h2>
+                <p>Quy định cách cắt lọc các lát mỏng và chọn lọc mô đưa vào cassette.</p>
+                <ul>
+                    <li>Lấy mẫu đại diện bao gồm: Toàn bộ khối u (nếu nhỏ) hoặc các lát cắt qua vùng u sâu nhất tiếp giáp mô lành và diện cắt.</li>
+                    <li>Lấy mẫu các hạch bạch huyết tìm thấy trong mô mỡ xung quanh.</li>
+                    <li>Đảm bảo miếng mô cắt có độ dày chuẩn (khoảng 2-3 mm) để hóa chất ngấm đều.</li>
+                </ul>
+
+              <!-- KHUNG SLIDER HÌNH ẢNH BƯỚC 6 -->
+<div class="image-slider-box" id="slider-step6">
+    
+    <!-- Ảnh 1 -->
+    <div class="slide-container active">
+        <img src="../hinh-anh/laymau1.png" alt="Lấy mẫu 1">
+        <div class="slide-caption">Hình 6.1: Bảng tổng hợp cách thức lấy mẫu.</div>
+    </div>
+
+    <!-- Ảnh 2 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/laymau2.png" alt="Lấy mẫu 2">
+        <div class="slide-caption">Hình 6.2: Kỹ thuật lẫy mẫu núm vú.</div>
+    </div>
+
+    <!-- Ảnh 3 -->
+    <div class="slide-container">
+        <img src="../hinh-anh/laymau3.png" alt="Lấy mẫu 3">
+        <div class="slide-caption">Hình 6.3: Kỹ thuật mapping.</div>
+    </div>
+
+    <!-- Nút Tiến / Lùi (Đã sửa đúng ID thành slider-step6) -->
+    <button class="slider-btn prev-btn" onclick="plusSlides(-1, 'slider-step6')">❮</button>
+    <button class="slider-btn next-btn" onclick="plusSlides(1, 'slider-step6')">❯</button>
+
+    <!-- Chấm chỉ mục (Đủ 3 chấm ứng với 3 ảnh và đúng ID slider-step6) -->
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(1, 'slider-step6')"></span>
+        <span class="dot" onclick="currentSlide(2, 'slider-step6')"></span>
+        <span class="dot" onclick="currentSlide(3, 'slider-step6')"></span>
+    </div>
+</div>
+            </section>
+
+            <!-- BƯỚC 6: CÁC TRƯỜNG HỢP ĐẶC BIỆT -->
+            <section class="step-block">
+                <span class="step-number">BƯỚC 6</span>
+                <h2 class="step-title">Một số trường hợp đặc biệt cần lưu ý</h2>
+                <p>Một số tình huống đặc biệt và các xử trí</p>
+                <ul>
+                    <li><strong>Đoạn nhũ sau lấy bướu:</strong> Đã lâu mô lành khó định vị, mới còn xuất huyết cũ thì giường bướu rõ, thường bác sĩ lâm sàng sẽ không chụp lại hình ảnh.</li>
+                    <li><strong>Đoạn nhũ tiết kiệm da, núm vú:</strong> Việc chừa lại da và mô dưới da có thể gây dương tính rìa nếu u gần rìa, cần đánh giá kỹ mô tả vị trí bướu (định vị chỉ mô sau núm vú), các DCIS dễ dương tính gần núm vú.</li>
+                    <li><strong>Các ca vú tân bổ trợ đáp ứng tốt, hoàn toàn:</strong> Kích thước ung thư trước điều trị; Sự xâm lấn da hoặc thành ngực; Các thay đổi trên da (ví dụ: ung thư dạng viêm); Những thay đổi trên hình ảnh học sau điều trị (ví dụ: khối u dai dẳng, thay đổi mức độ xâm lấn da, hoặc khối u biến mất hoàn toàn).</li>
+                </ul>
+            </section>
+
+        </article>
+    </main>
+
+    <!-- Modal Đăng Nhập -->
+    <div id="authModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-icon">🔒</span>
+                <h3>Đăng Nhập Hệ Thống</h3>
+            </div>
+            <p id="modalMessage">Bạn cần đăng nhập tài khoản chuyên môn để truy cập cẩm nang này.</p>
+            <div class="auth-form">
+                <div class="input-group">
+                    <label>Email hoặc Mã Bác Sĩ</label>
+                    <input type="text" id="loginUsername" placeholder="Ví dụ: dr.hung@pathology.vn">
+                </div>
+                <div class="input-group">
+                    <label>Mật Khẩu</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeAuthModal()">Hủy</button>
+                    <button type="button" class="btn-primary" onclick="handleLogin()">Đăng Nhập</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CHO HỆ THỐNG SLIDER ẢNH TIẾN/LÙI -->
+    <script>
+        // Lưu trữ vị trí slide hiện tại của từng slider trên trang
+        let slideIndices = {};
+
+        function plusSlides(n, sliderId) {
+            showSlides(slideIndices[sliderId] = (slideIndices[sliderId] || 0) + n, sliderId);
+        }
+
+        function currentSlide(n, sliderId) {
+            showSlides(slideIndices[sliderId] = n - 1, sliderId);
+        }
+
+        function showSlides(n, sliderId) {
+            let sliderBox = document.getElementById(sliderId);
+            let slides = sliderBox.getElementsByClassName("slide-container");
+            let dots = sliderBox.getElementsByClassName("dot");
+            
+            if (n >= slides.length) { slideIndices[sliderId] = 0; }
+            if (n < 0) { slideIndices[sliderId] = slides.length - 1; }
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            
+            slides[slideIndices[sliderId]].classList.add("active");
+            if(dots.length > 0) {
+                dots[slideIndices[sliderId]].classList.add("active");
+            }
+        }
+    </script>
+
+    <!-- Script Xác Thực (Lùi 1 cấp thư mục để gọi file auth.js ở gốc) -->
+    <script src="../auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHOA GIẢI PHẪU BỆNH - BỆNH VIỆN UNG BƯỚU</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- File CSS chính -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Hiệu ứng ánh sáng nền động -->
+    <div class="aurora-bg">
+        <div class="aurora-shape shape-1"></div>
+        <div class="aurora-shape shape-2"></div>
+        <div class="aurora-shape shape-3"></div>
+    </div>
+
+    <!-- Thanh điều hướng kính mờ kèm Logo Ung Bướu -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="hinh-anh/logoungbuou.jpg" alt="Logo Ung Bướu" class="logo-img">
+            <span class="logo-text">KHOA GPB<span class="logo-highlight">BỆNH VIỆN UNG BƯỚU</span></span>
+        </div>
+        <!-- Thanh tìm kiếm -->
+        <div class="nav-search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" onkeyup="filterOrgans()" placeholder="Tìm nhanh cơ quan, quy trình cắt lọc...">
+        </div>
+
+        <!-- Nút Đăng nhập / Quản trị -->
+        <div class="nav-auth">
+            <span id="userStatus" style="font-size: 0.9rem; color: #99f6e4; margin-right: 10px;">Chưa đăng nhập</span>
+            <button onclick="openAuthModal()" id="authBtn" style="background: #14b8a6; color: white; border: none; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 600; cursor: pointer;">Đăng Nhập</button>
+        </div>
+    </nav>
+    </nav>
+
+    <!-- Header Hero -->
+    <header class="hero">
+        <div class="hero-tag">
+            <span class="pulse-dot"></span> HÀ KIỀU OANH ĐANG TEST
+        </div>
+        <h1>TRANG WEB QUY TRÌNH CẮT LỌC <br><span class="gradient-text">ĐANG THỬ NGHIỆM</span></h1>
+        <p class="hero-desc">PHIÊN BẢN THỬ NGHIỆM, ĐANG TRONG QUÁ TRÌNH XÂY DỰNG - LKB.</p>
+        
+        <div class="hero-pills">
+            <div class="pill">🧬 14 Hệ cơ quan</div>
+            <div class="pill">⚡ Tìm kiếm thời gian thực</div>
+            <div class="pill">📐 TEST TEST</div>
+        </div>
+    </header>
+
+    <!-- Lưới danh mục 14 hệ cơ quan -->
+    <main class="container">
+        <div class="organ-grid" id="organGrid">
+
+            <!-- 1. Nguyên tắc chung -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">📌</div><span class="card-tag">Quy chuẩn</span></div>
+                <h3>1. Nguyên Tắc Chung Khi Cắt Lọc</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/nguyen-tac-chung.html"><span class="arrow">→</span> Quy định cố định formol & đo đạc 3D</a></li>
+                    <li><a href="bai-viet/danh-dau-muc-tau.html"><span class="arrow">→</span> Đánh dấu mực tàu diện cắt & viền bao</a></li>
+                    <li><a href="bai-viet/quy-tac-lay-mau.html"><span class="arrow">→</span> Quy tắc lập lát cắt & đúc Cassette</a></li>
+                </ul>
+            </div>
+
+            <!-- 2. Tuyến vú -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🎗️</div><span class="card-tag">Tuyến Vú</span></div>
+                <h3>2. Bệnh Phẩm Tuyến Vú</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/vu-sinh-thiet.html"><span class="arrow">→</span> Bệnh phẩm sinh thiết (Core biopsy / VAB)</a></li>
+                    <li><a href="bai-viet/vu-bao-ton.html"><span class="arrow">→</span> Bệnh phẩm cắt vú bảo tồn (Lumpectomy)</a></li>
+                    <li><a href="bai-viet/vu-cat-tron.html"><span class="arrow">→</span> Bệnh phẩm cắt trọn tuyến vú (Mastectomy ± ALND)</a></li>
+                </ul>
+            </div>
+
+            <!-- 3. Sinh dục nữ -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🧬</div><span class="card-tag">Phụ Khoa</span></div>
+                <h3>3. Bệnh Phẩm Sinh Dục Nữ</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/tc-khoet-chop.html"><span class="arrow">→</span> Khoét chóp cổ tử cung (Conization / LEEP)</a></li>
+                    <li><a href="bai-viet/tc-cat-tu-cung.html"><span class="arrow">→</span> Bệnh phẩm cắt tử cung (Toàn phần / Bán phần)</a></li>
+                    <li><a href="bai-viet/tc-buong-trung.html"><span class="arrow">→</span> Bệnh phẩm u buồng trứng & vòi tử cung</a></li>
+                </ul>
+            </div>
+
+            <!-- 4. Tiêu hóa -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🫃</div><span class="card-tag">Tiêu Hóa</span></div>
+                <h3>4. Bệnh Phẩm Tiêu Hóa</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/thuc-quan.html"><span class="arrow">→</span> Bệnh phẩm Thực quản</a></li>
+                    <li><a href="bai-viet/da-day.html"><span class="arrow">→</span> Bệnh phẩm Dạ dày (Bán phần / Toàn bộ)</a></li>
+                    <li><a href="bai-viet/dai-trang.html"><span class="arrow">→</span> Bệnh phẩm Đại trực tràng & Ruột non</a></li>
+                </ul>
+            </div>
+
+            <!-- 5. Gan - Mật - Tụy -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🩸</div><span class="card-tag">Gan Mật Tụy</span></div>
+                <h3>5. Bệnh Phẩm Gan - Mật - Tụy</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/gan.html"><span class="arrow">→</span> Bệnh phẩm cắt gan (Phân thùy / Thùy gan)</a></li>
+                    <li><a href="bai-viet/tui-mat.html"><span class="arrow">→</span> Bệnh phẩm túi mật mạn tính / Polyp túi mật</a></li>
+                    <li><a href="bai-viet/tuy.html"><span class="arrow">→</span> Bệnh phẩm tụy (Phẫu thuật Whipple)</a></li>
+                </ul>
+            </div>
+
+            <!-- 6. Thận -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🫘</div><span class="card-tag">Thận</span></div>
+                <h3>6. Bệnh Phẩm Thận</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/than-cat-tron.html"><span class="arrow">→</span> Cắt thận triệt căn (Radical nephrectomy)</a></li>
+                    <li><a href="bai-viet/than-bao-ton.html"><span class="arrow">→</span> Cắt thận bán phần (Partial nephrectomy)</a></li>
+                </ul>
+            </div>
+
+            <!-- 7. Tuyến giáp -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🦋</div><span class="card-tag">Nội Tiết</span></div>
+                <h3>7. Bệnh Phẩm Tuyến Giáp</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/giap-thuy.html"><span class="arrow">→</span> Cắt một thùy tuyến giáp (Lobectomy)</a></li>
+                    <li><a href="bai-viet/giap-toan-bo.html"><span class="arrow">→</span> Cắt toàn bộ tuyến giáp kèm vét hạch cổ</a></li>
+                </ul>
+            </div>
+
+            <!-- 8. Lách -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🛡️</div><span class="card-tag">Huyết Học</span></div>
+                <h3>8. Bệnh Phẩm Lách</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/lach.html"><span class="arrow">→</span> Cắt lách (Chấn thương / Huyết học / U lách)</a></li>
+                </ul>
+            </div>
+
+            <!-- 9. Bàng quang -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">💧</div><span class="card-tag">Tiết Niệu</span></div>
+                <h3>9. Bệnh Phẩm Bàng Quang</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/bang-quang-turbt.html"><span class="arrow">→</span> Sinh thiết / Cắt u nội soi (TURBT)</a></li>
+                    <li><a href="bai-viet/bang-quang-triet-can.html"><span class="arrow">→</span> Cắt bàng quang triệt căn (Radical cystectomy)</a></li>
+                </ul>
+            </div>
+
+            <!-- 10. Tinh hoàn, niệu, tuyến tiền liệt -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">⚥</div><span class="card-tag">Nam Khoa</span></div>
+                <h3>10. Tinh Hoàn, Niệu & Tiền Liệt Tuyến</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/tinh-hoan.html"><span class="arrow">→</span> Cắt tinh hoàn (Orchiectomy do u / chấn thương)</a></li>
+                    <li><a href="bai-viet/tpt-turp.html"><span class="arrow">→</span> Cắt đốt nội soi tuyến tiền liệt (TURP)</a></li>
+                    <li><a href="bai-viet/tpt-triet-can.html"><span class="arrow">→</span> Cắt toàn bộ tuyến tiền liệt triệt căn</a></li>
+                </ul>
+            </div>
+
+            <!-- 11. Phổi -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🫁</div><span class="card-tag">Hô Hấp</span></div>
+                <h3>11. Bệnh Phẩm Phổi</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/phoi-wedge.html"><span class="arrow">→</span> Cắt chêm phổi (Wedge resection / Biopsy)</a></li>
+                    <li><a href="bai-viet/phoi-lobectomy.html"><span class="arrow">→</span> Cắt thùy phổi / Cắt toàn bộ phổi (Lobectomy)</a></li>
+                </ul>
+            </div>
+
+            <!-- 12. Xương -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🦴</div><span class="card-tag">Cơ Xương Khớp</span></div>
+                <h3>12. Bệnh Phẩm Xương</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/xuong-u.html"><span class="arrow">→</span> Cắt khối u xương & mô mềm phần chi</a></li>
+                    <li><a href="bai-viet/xuong-khop.html"><span class="arrow">→</span> Bệnh phẩm chỏm xương đùi / Khớp gối</a></li>
+                </ul>
+            </div>
+
+            <!-- 13. Da -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">👤</div><span class="card-tag">Da Liễu</span></div>
+                <h3>13. Bệnh Phẩm Da</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/da-shave-punch.html"><span class="arrow">→</span> Sinh thiết Shave & Punch biopsy</a></li>
+                    <li><a href="bai-viet/da-excise.html"><span class="arrow">→</span> Cắt rộng tổn thương da (Wide excision Melanoma / SCC)</a></li>
+                </ul>
+            </div>
+
+            <!-- 14. Đầu cổ -->
+            <div class="organ-card-group">
+                <div class="card-header"><div class="icon-box">🗣️</div><span class="card-tag">Tai Mũi Họng</span></div>
+                <h3>14. Bệnh Phẩm Đầu, Cổ</h3>
+                <ul class="sub-link-list">
+                    <li><a href="bai-viet/dau-co-tuyen-mang-tai.html"><span class="arrow">→</span> Cắt tuyến mang tai / Tuyến dưới hàm</a></li>
+                    <li><a href="bai-viet/dau-co-vong-mieng.html"><span class="arrow">→</span> Bệnh phẩm vòm họng / Thanh quản / Khoang miệng</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 <strong>HEHE</strong>. Xây dựng và phát triển bởi Bác sĩ Giải Phẫu Bệnh.</p>
+            <p class="footer-sub">Nền tảng số hóa tài liệu y khoa chuẩn hóa bảo mật nội bộ.</p>
+        </div>
+    </footer>
+
+    <!-- Script Tìm kiếm -->
+    <script>
+        function filterOrgans() {
+            let input = document.getElementById('searchInput').value.toLowerCase().trim();
+            let groups = document.getElementsByClassName('organ-card-group');
+            
+            for (let i = 0; i < groups.length; i++) {
+                let text = groups[i].innerText.toLowerCase();
+                if (text.includes(input)) {
+                    groups[i].style.display = "flex";
+                    groups[i].style.animation = "fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards";
+                } else {
+                    groups[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+<!-- Modal Đăng Nhập / Chặn Truy Cập -->
+<div id="authModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="modal-icon">🔒</span>
+            <h3>Đăng Nhập Hệ Thống</h3>
+        </div>
+        <p id="modalMessage">Bạn cần đăng nhập tài khoản chuyên môn để truy cập cẩm nang này.</p>
+        
+        <div class="auth-form" id="loginFormSection">
+            <!-- Ô nhập Tên đăng nhập / Email -->
+            <div class="input-group">
+                <label>Email hoặc Mã Bác Sĩ</label>
+                <input type="text" id="loginUsername" placeholder="Ví dụ: dr.hung@pathology.vn">
+            </div>
+            
+            <!-- Ô nhập Mật khẩu (QUAN TRỌNG: Phải khớp id với file auth.js) -->
+            <div class="input-group">
+                <label>Mật Khẩu</label>
+                <input type="password" id="loginPassword" placeholder="••••••••">
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" onclick="closeAuthModal()">Hủy</button>
+                <button type="button" class="btn-primary" onclick="handleLogin()">Đăng Nhập</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="auth.js"></script>
+</body>
+</html>
